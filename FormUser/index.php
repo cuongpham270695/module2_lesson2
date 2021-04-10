@@ -10,14 +10,17 @@
         .error {
             color: #FF0000;
         }
-        table{
+
+        table {
             border-collapse: collapse;
             width: 100%;
         }
-        td, th{
+
+        td, th {
             border: solid 1px #ccc;
         }
-        form{
+
+        form {
             width: 450px;
         }
     </style>
@@ -60,11 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"];
     $phoneNumber = $_POST["phoneNumber"];
     $error = false;
-    if (empty($_POST["name"])) {
+    if (empty($name)) {
         $nameErr = "It's not invalid!you need to fill it!";
         $error = true;
     }
-    if (empty($_POST["email"])) {
+    if (empty($email)) {
         $emailErr = "It's not invalid!you need to fill it!";
         $error = true;
     } else {
@@ -73,12 +76,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $error = true;
         }
     }
-    if (empty($_POST["phoneNumber"])) {
+    if (empty($phoneNumber)) {
         $phoneNumberErr = "It's not invalid!you need to fill it!";
         $error = true;
     }
-    if ($error === false){
-        saveDataJSON("users.json",$name,$email,$phoneNumber);
+    if ($error === false) {
+        saveDataJSON("users.json", $name, $email, $phoneNumber);
         $name = NULL;
         $email = NULL;
         $phoneNumber = NULL;
@@ -94,28 +97,28 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         E-mail: <input type="text" name="email" value="<?php echo $email; ?>">
         <span class="error">* <?php echo $emailErr; ?></span>
         <br><br>
-        Phone: <input type="number" name="phoneNumber" value="<?php echo $phoneNumber; ?>">
+        Phone number: <input type="number" name="phoneNumber" value="<?php echo $phoneNumber; ?>">
         <span class="error">*<?php echo $phoneNumberErr; ?></span>
         <br><br>
         <input type="submit" name="submit" value="Register">
         <p><span class="error">* Required field.</span></p>
     </fieldset>
-    <?php $registrations = loadRegistrations("users.json"); ?>
-    <h2>Registration List</h2>
-    <table>
+</form>
+<?php $registrations = loadRegistrations("users.json"); ?>
+<h2>Registration List</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+    </tr>
+    <?php foreach ($registrations as $registration): ?>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-        </tr>
-        <?php foreach ($registrations as $registration ): ?>
-        <tr>
-            <td><?= $registration["name"];?></td>
+            <td><?= $registration["name"]; ?></td>
             <td><?= $registration["email"]; ?></td>
             <td><?= $registration["phoneNumber"] ?></td>
         </tr>
-        <?php endforeach; ?>
-    </table>
-</form>
+    <?php endforeach; ?>
+</table>
 </body>
 </html>
