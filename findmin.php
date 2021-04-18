@@ -1,11 +1,13 @@
 <?php
+$arr = [25,12,4,9,8,31,15,14,10,6];
 function findMin($array){
-    $index = NULL;
     $min= $array[0];
-    for($i=0;$i<count($array);$i++);{
+    for($i=1;$i<=count($array);$i++);{
         if($array[$i]<$min){
-            $array[$i]=$min;
+            $min = $array[$i];
         }
     }
-    return $i;
+    return $min;
 }
+
+echo "Giá trị nhỏ nhất trong mảng là: " . findMin($arr);
